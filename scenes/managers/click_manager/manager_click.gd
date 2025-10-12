@@ -11,5 +11,5 @@ func _enter_tree() -> void:
 	ref = self
 
 func click() -> void:
-	Game.ref.data.stars += 1
+	ManagerStars.ref.create_stars(1)
 	

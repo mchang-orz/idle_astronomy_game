@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2ymi2sui4d7k"]
+
+[ext_resource type="Texture2D" uid="uid://blkd135x71ddu" path="res://assets/icon.svg" id="1_jfl12"]
+
+[sub_resource type="GDScript" id="GDScript_jfl12"]
+resource_name = "star_spawn"
+script/source = "#class_name Star
+extends Area2D
+
+#static var ref : Star
+
+#func _init() -> void:
+	#if not ref: ref = self
+	#
+	#else: queue_free()
+
+func randomize_position() -> void:
+	#get screen size
+	var viewport_size = get_viewport_rect().size
+	#generates new numbers every time
+	var rng = RandomNumberGenerator.new()
+
+	var pos_x = rng.randf_range(0, viewport_size.x)
+	var pos_y = rng.randf_range(0, viewport_size.y)
+	
+	self.position = Vector2(pos_x,pos_y)
+
+func _ready() -> void:
+	randomize()
+	randomize_position()
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+		ManagerClick.ref.click()
+		queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jfl12"]
+radius = 65.5134
+
+[node name="Star" type="Area2D"]
+script = SubResource("GDScript_jfl12")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jfl12")
+
+[node name="Star_Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_jfl12")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

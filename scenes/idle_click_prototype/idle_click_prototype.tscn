@@ -1,17 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://byn2luapkv0aj"]
+[gd_scene load_steps=4 format=3 uid="uid://byn2luapkv0aj"]
 
-[ext_resource type="Script" uid="uid://b26ho8tmh4ggx" path="res://scenes/idle_click_prototype/idle_click_prototype.gd" id="1_boi1d"]
 [ext_resource type="Texture2D" uid="uid://blkd135x71ddu" path="res://assets/icon.svg" id="2_ej6a4"]
 
-[node name="IdleClickPrototype" type="Control" node_paths=PackedStringArray("label")]
+[sub_resource type="GDScript" id="GDScript_ej6a4"]
+script/source = "extends Label
+
+func _ready() -> void:
+	update_text()
+	ManagerStars.ref.stars_created.connect(_on_stars_created)
+	
+func update_text() -> void:
+	text = \"STARS: %s\" %ManagerStars.ref.get_stars()
+	
+func _on_stars_created(quant : int) -> void:
+	update_text()
+"
+
+[sub_resource type="GDScript" id="GDScript_boi1d"]
+resource_name = "button"
+script/source = "extends TextureButton
+
+func _on_pressed() -> void:
+	ManagerClick.ref.click()
+"
+
+[node name="IdleClickPrototype" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_boi1d")
-label = NodePath("Label")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -22,6 +41,7 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
+script = SubResource("GDScript_ej6a4")
 
 [node name="TextureButton" type="TextureButton" parent="."]
 layout_mode = 1
@@ -37,5 +57,6 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("2_ej6a4")
+script = SubResource("GDScript_boi1d")
 
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

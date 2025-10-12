@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfi3efxjqq8ln"]
+
+[ext_resource type="Script" uid="uid://vhwkhourj7xu" path="res://scenes/managers/timer_manager/clock.gd" id="1_qe7bw"]
+
+[node name="Clock" type="Node"]
+script = ExtResource("1_qe7bw")

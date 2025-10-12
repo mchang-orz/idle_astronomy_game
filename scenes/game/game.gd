@@ -11,3 +11,6 @@ func _enter_tree() -> void:
 	ref = self
 	
 var data : Data = Data.new()
+
+#preloading star sprite for clickies
+var clickable_star = preload("res://scenes/clickable_sprites/star.tscn")

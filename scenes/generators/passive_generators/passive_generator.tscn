@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhsuvu8f6deny"]
+
+[ext_resource type="Script" uid="uid://c1g5rcrgykh81" path="res://scenes/generators/passive_generators/passive_generator.gd" id="1_56d61"]
+
+[node name="PassiveGenerator" type="Node"]
+script = ExtResource("1_56d61")

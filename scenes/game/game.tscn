@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlqbdhvu8w3on"]
+[gd_scene load_steps=8 format=3 uid="uid://dlqbdhvu8w3on"]
 
 [ext_resource type="Script" uid="uid://ds55yvg7gd6uq" path="res://scenes/game/game.gd" id="1_0sr1o"]
 [ext_resource type="PackedScene" uid="uid://byn2luapkv0aj" path="res://scenes/idle_click_prototype/idle_click_prototype.tscn" id="2_kelw5"]
 [ext_resource type="PackedScene" uid="uid://cfi3efxjqq8ln" path="res://scenes/managers/timer_manager/clock.tscn" id="2_lfrn8"]
 [ext_resource type="PackedScene" uid="uid://nuxofk7wv04b" path="res://scenes/spawners/star_spawner.tscn" id="3_5i0tg"]
+[ext_resource type="PackedScene" uid="uid://dhsuvu8f6deny" path="res://scenes/generators/passive_generators/passive_generator.tscn" id="3_bdhmt"]
 [ext_resource type="PackedScene" uid="uid://c8yhtcp7o7tv2" path="res://scenes/managers/click_manager/manager_click.tscn" id="3_lfrn8"]
 [ext_resource type="PackedScene" uid="uid://dh4q04ap06fib" path="res://scenes/managers/stars_manager/manager_stars.tscn" id="4_kelw5"]
 
@@ -11,6 +12,8 @@
 script = ExtResource("1_0sr1o")
 
 [node name="Clock" parent="." instance=ExtResource("2_lfrn8")]
+
+[node name="PassiveGenerator" parent="." instance=ExtResource("3_bdhmt")]
 
 [node name="StarSpawner" parent="." instance=ExtResource("3_5i0tg")]
 

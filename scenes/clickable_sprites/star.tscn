@@ -14,6 +14,11 @@ extends Area2D
 	#
 	#else: queue_free()
 
+var star_lifetime : float = 5.0
+
+var star_lifetime_progress : float = 0.0
+
+
 func randomize_position() -> void:
 	#get screen size
 	var viewport_size = get_viewport_rect().size
@@ -26,9 +31,25 @@ func randomize_position() -> void:
 	self.position = Vector2(pos_x,pos_y)
 
 func _ready() -> void:
+	Clock.ref.ticked.connect(_clock_tick)
 	randomize()
 	randomize_position()
 
+#makes sure stars do not stay on game field for too long if not clicked
+func _despawn_star_progress() -> void:
+	star_lifetime_progress += 1.0
+	
+	if star_lifetime_progress >= star_lifetime:
+		_despawn_star()
+	
+func _despawn_star() -> void:
+	star_lifetime_progress -= star_lifetime
+	queue_free()
+	
+func _clock_tick() -> void:
+	_despawn_star_progress()
+	
+#up star resource when clicked on then despawn
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 		ManagerClick.ref.click()

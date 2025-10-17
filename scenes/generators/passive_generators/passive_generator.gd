@@ -17,11 +17,12 @@ var _locked : bool = true
 
 func _ready() -> void:
 	Clock.ref.ticked.connect(_clock_tick)
+
+func _start_generator() -> void:
+	if Game.ref.data.upgrade_passive == false:
+		return
 	
-	if Game.ref.data.upgrade_passive:
-		_locked = false
-	else:
-		_locked = true
+	_locked = false
 
 func _progress_cycles() -> void:
 	if _locked: return

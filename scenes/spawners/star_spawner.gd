@@ -28,4 +28,4 @@ func _spawn_star() -> void:
 	add_child(new_star)
 	
 func _clock_tick() -> void:
-	_spawn_star()
+	_progress_star_spawn()

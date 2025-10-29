@@ -8,9 +8,9 @@ func _init() -> void:
 	
 	else: queue_free()
 	
-var spawn_rate : float = 2.0
+var spawn_rate : float = 1.0
 
-var spawn_progress : float = 0.0	
+var spawn_progress : float = 0.0
 	
 func _ready() -> void:
 	Clock.ref.ticked.connect(_clock_tick)

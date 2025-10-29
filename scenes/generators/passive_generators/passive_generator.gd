@@ -20,6 +20,7 @@ func _ready() -> void:
 
 func _start_generator() -> void:
 	if Game.ref.data.upgrade_passive == false:
+		_locked = true
 		return
 	
 	_locked = false

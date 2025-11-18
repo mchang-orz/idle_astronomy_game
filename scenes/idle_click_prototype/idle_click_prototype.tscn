@@ -27,6 +27,22 @@ func _on_pressed() -> void:
 [sub_resource type="GDScript" id="GDScript_1pde7"]
 script/source = "extends CheckButton
 
+func _ready() -> void:
+	disabled = true
+	
+func _process(_delta: float) -> void:
+	if ManagerStars.ref.get_stars() >= ManagerUpgrades.ref.passivegen_cost:
+		disabled = false
+		print(ManagerStars.ref.get_stars() - ManagerUpgrades.ref.passivegen_cost)
+		
+func upgrade_bought() -> void:
+	var total = ManagerStars.ref.get_stars()
+	var newtotal = total - ManagerUpgrades.ref.passivegen_cost
+	if newtotal < 0:
+		ManagerStars.ref.stars = 0
+	else:
+		ManagerStars.ref.stars = newtotal
+
 #unlocks passive star gen
 func _on_toggled(toggled_on: bool) -> void:
 	if toggled_on == true:
@@ -37,6 +53,15 @@ func _on_toggled(toggled_on: bool) -> void:
 		Game.ref.data.upgrade_passive = false
 		print(\"upgrade status: \", Game.ref.data.upgrade_passive)
 		PassiveGenerator.ref._start_generator()
+
+
+func _on_pressed() -> void:
+	if ManagerStars.ref.get_stars() < ManagerUpgrades.ref.passivegen_cost :
+		print(\"cannot buy!\")
+		return
+	print(\"upgrade bought\")
+	disabled = true
+	upgrade_bought()
 "
 
 [node name="IdleClickPrototype" type="Control"]
@@ -91,4 +116,5 @@ text = "passivegen"
 script = SubResource("GDScript_1pde7")
 
 [connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]
+[connection signal="pressed" from="CheckButton" to="CheckButton" method="_on_pressed"]
 [connection signal="toggled" from="CheckButton" to="CheckButton" method="_on_toggled"]
